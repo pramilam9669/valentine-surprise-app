@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import confetti from "canvas-confetti";
-import perfectSong from "./../song.mp3";
+
+const perfectSong = "/song.mp3";
 
 function Balloons() {
   const balloons = Array.from({ length: 30 });
@@ -40,6 +41,18 @@ export default function App() {
     "https://media.tenor.com/F9Q3thp6tzUAAAAi/bubu-bubu-dudu.gif"
   ];
   const [currentGifIndex, setCurrentGifIndex] = useState(0);
+  useEffect(() => {
+    const audio = new Audio(perfectSong);
+    audio.loop = true;
+    audio.play().catch(() => {});
+    audioRef.current = audio;
+
+    return () => {
+      audio.pause();
+      audio.src = "";
+    };
+  }, []);
+
   useEffect(() => {
     if (!completed) return;
 
@@ -170,17 +183,17 @@ export default function App() {
   const questionText1 = useInfiniteTypewriter(
     "Will you be my Valentine? ❤️",
     70,
-    1000
+  
   );
 
   const questionText2 = useInfiniteTypewriter(
     "You’ve had my heart forever ❤️",
     70,
-    2000
+    
   );
 
   const questionText3 = useInfiniteTypewriter(
-    "Happy Valentine’s Day, My Love #RGForever 💖",
+    "Happy Valentine’s Day, My Love #SPForever 💖",
     70,
     2000
   );
@@ -190,11 +203,7 @@ export default function App() {
       {/* WAITING GIF */}
       <audio ref={audioRef} src={perfectSong} preload="auto" />
       {accepted && !completed && (
-        <img
-          src="https://media.tenor.com/8X_GB7f_xUkAAAAi/tkthao219-bubududu.gif"
-          alt="waiting gif"
-          style={styles.waitingGif}
-        />
+        <div style={{ fontSize: "64px", marginBottom: "20px" }}>💕</div>
       )}
 
       {/* FINAL GIF */}
@@ -384,15 +393,7 @@ const styles = {
     width: "150px",
     animation: "fadeIn 0.5s ease forwards",
   },
-  balloonContainer: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    overflow: "hidden",
-    pointerEvents: "none",
-  },
+
 
   balloon: {
     position: "absolute",
