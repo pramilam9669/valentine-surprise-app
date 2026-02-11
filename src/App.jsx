@@ -181,7 +181,7 @@ export default function App() {
   // TYPEWRITER TEXT
   // -----------------------------
   const questionText1 = useInfiniteTypewriter(
-    "Will you be my Valentine? ❤️",
+    "Susi, Will you be my Valentine? ❤️",
     70,
   
   );
